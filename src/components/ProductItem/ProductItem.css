@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: center;
   aspect-ratio: 1;
-  padding: 24px;
+  padding: clamp(12px, 3vw, 24px);
 }
 
 .product-item__image .product-image {

@@ -19,7 +19,7 @@ export default function Search({ value, onChange, resultCount }) {
         id="product-search"
         type="search"
         className="search__input"
-        placeholder="Buscar por marca o modelo"
+        placeholder="Marca o modelo"
         value={value}
         onChange={(event) => onChange(event.target.value)}
         autoComplete="off"
