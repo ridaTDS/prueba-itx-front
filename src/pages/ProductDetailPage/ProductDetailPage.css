@@ -1,0 +1,36 @@
+/* Dos columnas: imagen | descripción + acciones */
+.pdp__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .pdp__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+
+  .pdp__image {
+    position: sticky;
+    top: 120px;
+  }
+}
+
+.pdp__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  padding: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.pdp__details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
