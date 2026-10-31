@@ -41,7 +41,7 @@ export default function ProductListPage() {
       )}
 
       {!loading && !error && filtered.length > 0 && (
-        <ul className="plp__grid">
+        <ul className="plp__grid" aria-label="Productos">
           {filtered.map((product) => (
             <ProductItem key={product.id} product={product} />
           ))}
