@@ -2,6 +2,9 @@
 
 Mini aplicación (SPA) para comprar dispositivos móviles, desarrollada como prueba técnica de front-end.
 
+> 📄 **Guía paso a paso** para arrancar la aplicación y ejecutar todos los tests (back y front):
+> [`docs/GUIA-ARRANQUE-Y-PRUEBAS.pdf`](./docs/GUIA-ARRANQUE-Y-PRUEBAS.pdf)
+
 Tiene dos vistas:
 
 - **PLP** (`/`): listado de productos con búsqueda en tiempo real por marca y modelo.
