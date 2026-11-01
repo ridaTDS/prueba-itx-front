@@ -17,7 +17,7 @@ export function createTestAuth(overrides = {}) {
 export function renderApp(route = '/', auth = createTestAuth()) {
   return render(
     <AuthContext.Provider value={auth}>
-      <MemoryRouter initialEntries={[route]}>
+      <MemoryRouter initialEntries={[route]} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <CartProvider>
           <App />
         </CartProvider>
