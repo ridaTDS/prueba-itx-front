@@ -70,10 +70,10 @@ Variables de entorno (ver `.env.example`):
 ```
 src/
 ├── api/            # Cliente HTTP (con caché) y endpoints del API
-├── auth/           # AuthProvider: sesión con Keycloak (OIDC + PKCE)
+├── auth/           # AuthProvider y useAuth: sesión con Keycloak (OIDC + PKCE)
 ├── components/     # Header (+ Breadcrumbs), Search, ProductItem, ProductImage,
 │                   # ProductDescription, ProductActions, Loader
-├── context/        # CartContext: contador de la cesta persistido
+├── context/        # CartProvider y useCart: contador de la cesta persistido
 ├── hooks/          # useAsync, useProducts / useProduct
 ├── pages/          # ProductListPage (PLP), ProductDetailPage (PDP), NotFoundPage
 ├── styles/         # Variables y estilos globales
@@ -117,7 +117,7 @@ la cesta, breadcrumbs con `aria-current`, foco visible y textos alternativos en 
 
 ## Seguridad
 
-La aplicación sólo se muestra a usuarios autenticados (`src/auth/AuthContext.jsx`):
+La aplicación sólo se muestra a usuarios autenticados (`src/auth/AuthProvider.jsx`):
 
 - **Authorization Code + PKCE (S256)** contra Keycloak con un cliente público
   (`itx-mobile-store`): el front no guarda ningún secreto.
@@ -143,5 +143,5 @@ usa el proyecto de back. Consola de administración: http://localhost:8080 (`adm
 - `utils/product.test.js`: filtrado, formateo de precio y normalización de atributos.
 - `pages/*/*.test.jsx`, `components/Header/Header.test.jsx`: flujos completos de la PLP,
   la PDP y la cabecera (búsqueda, selección por defecto, añadir a la cesta, contador y logout).
-- `auth/AuthContext.test.jsx`: login con PKCE, redirección sin sesión, error de Keycloak y logout
+- `auth/AuthProvider.test.jsx`: login con PKCE, redirección sin sesión, error de Keycloak y logout
   (con un Keycloak simulado; el resto de tests usan una sesión simulada).

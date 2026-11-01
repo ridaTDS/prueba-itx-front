@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { AuthContext } from '../auth/AuthContext';
-import { CartProvider } from '../context/CartContext';
+import { AuthContext } from '../auth/auth';
+import { CartProvider } from '../context/CartProvider';
 import App from '../App';
 
 export function createTestAuth(overrides = {}) {

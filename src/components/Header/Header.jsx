@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../auth/AuthContext';
-import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../auth/auth';
+import { useCart } from '../../context/cart';
 import Breadcrumbs from './Breadcrumbs';
 import './Header.css';
 

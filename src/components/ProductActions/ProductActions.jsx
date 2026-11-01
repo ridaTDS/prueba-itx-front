@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCart } from '../../context/CartContext';
+import { useCart } from '../../context/cart';
 import { getOptions } from '../../utils/product';
 import OptionSelector from './OptionSelector';
 import './ProductActions.css';

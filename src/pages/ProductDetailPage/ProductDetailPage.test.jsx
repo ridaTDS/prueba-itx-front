@@ -2,7 +2,7 @@ import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderApp } from '../../test/renderWithProviders';
 import { productDetail } from '../../test/fixtures';
-import { CART_STORAGE_KEY } from '../../context/CartContext';
+import { CART_STORAGE_KEY } from '../../context/cart';
 import * as api from '../../api/products';
 
 vi.mock('../../api/products');

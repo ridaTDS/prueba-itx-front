@@ -1,9 +1,6 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { addToCart as addToCartRequest } from '../api/products';
-
-export const CART_STORAGE_KEY = 'itx-cart-count';
-
-const CartContext = createContext(null);
+import { CART_STORAGE_KEY, CartContext } from './cart';
 
 function readStoredCount() {
   try {
@@ -36,10 +33,4 @@ export function CartProvider({ children }) {
   const value = useMemo(() => ({ count, addToCart }), [count, addToCart]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
-}
-
-export function useCart() {
-  const context = useContext(CartContext);
-  if (!context) throw new Error('useCart debe usarse dentro de <CartProvider>');
-  return context;
 }

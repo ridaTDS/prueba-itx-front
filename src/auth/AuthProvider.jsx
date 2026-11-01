@@ -1,17 +1,10 @@
-import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Keycloak from 'keycloak-js';
 import Loader from '../components/Loader/Loader';
-
-export const KEYCLOAK_CONFIG = {
-  url: import.meta.env.VITE_KEYCLOAK_URL || 'http://localhost:8080',
-  realm: import.meta.env.VITE_KEYCLOAK_REALM || 'itx',
-  clientId: import.meta.env.VITE_KEYCLOAK_CLIENT_ID || 'itx-mobile-store',
-};
+import { AuthContext, KEYCLOAK_CONFIG } from './auth';
 
 // Segundos de margen para renovar el token antes de que caduque
 const MIN_TOKEN_VALIDITY = 30;
-
-export const AuthContext = createContext(null);
 
 function createKeycloak() {
   return new Keycloak(KEYCLOAK_CONFIG);
@@ -88,10 +81,4 @@ export function AuthProvider({ children, keycloakFactory = createKeycloak }) {
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error('useAuth debe usarse dentro de <AuthProvider>');
-  return context;
 }

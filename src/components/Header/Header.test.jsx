@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createTestAuth, renderApp } from '../../test/renderWithProviders';
-import { CART_STORAGE_KEY } from '../../context/CartContext';
+import { CART_STORAGE_KEY } from '../../context/cart';
 import * as api from '../../api/products';
 
 vi.mock('../../api/products');
