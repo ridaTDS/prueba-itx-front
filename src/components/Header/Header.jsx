@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthContext';
 import { useCart } from '../../context/CartContext';
 import Breadcrumbs from './Breadcrumbs';
 import './Header.css';
@@ -20,6 +21,7 @@ function CartIcon() {
 
 export default function Header() {
   const { count } = useCart();
+  const { user, logout } = useAuth();
 
   return (
     <header className="header">
@@ -29,15 +31,26 @@ export default function Header() {
           ITX<span className="header__logo-light">Mobile</span>
         </Link>
 
-        <div
-          className="header__cart"
-          role="status"
-          aria-label={`${count} ${count === 1 ? 'producto' : 'productos'} en la cesta`}
-        >
-          <CartIcon />
-          <span className="header__cart-count" data-testid="cart-count">
-            {count}
-          </span>
+        <div className="header__actions">
+          <div className="header__user">
+            <span className="header__user-name" title={user?.username}>
+              Hola, {user?.name}
+            </span>
+            <button type="button" className="header__logout" onClick={logout}>
+              Cerrar sesión
+            </button>
+          </div>
+
+          <div
+            className="header__cart"
+            role="status"
+            aria-label={`${count} ${count === 1 ? 'producto' : 'productos'} en la cesta`}
+          >
+            <CartIcon />
+            <span className="header__cart-count" data-testid="cart-count">
+              {count}
+            </span>
+          </div>
         </div>
       </div>
       <div className="header__crumbs container">

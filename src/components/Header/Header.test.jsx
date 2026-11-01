@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/react';
-import { renderApp } from '../../test/renderWithProviders';
+import userEvent from '@testing-library/user-event';
+import { createTestAuth, renderApp } from '../../test/renderWithProviders';
 import { CART_STORAGE_KEY } from '../../context/CartContext';
 import * as api from '../../api/products';
 
@@ -27,5 +28,15 @@ describe('Header', () => {
     renderApp('/');
 
     expect(screen.getByTestId('cart-count')).toHaveTextContent('0');
+  });
+
+  it('muestra el usuario de la sesión y permite cerrarla', async () => {
+    const auth = createTestAuth();
+    renderApp('/', auth);
+
+    expect(screen.getByText('Hola, Demo')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Cerrar sesión' }));
+
+    expect(auth.logout).toHaveBeenCalledTimes(1);
   });
 });

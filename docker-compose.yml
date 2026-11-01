@@ -1,0 +1,16 @@
+# Servidor de identidad para desarrollo local.
+# Es el mismo Keycloak (y realm) que usa el proyecto de back: si ya lo tienes levantado desde allí,
+# no hace falta arrancar este.
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    command: start-dev --import-realm
+    ports:
+      - "8080:8080"
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
+      - KC_HOSTNAME=http://localhost:8080
+      - KC_HTTP_ENABLED=true
+    volumes:
+      - ./keycloak:/opt/keycloak/data/import
