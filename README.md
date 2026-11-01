@@ -105,7 +105,8 @@ accesibles con aspecto de botones. Si sólo hay una opción, se selecciona por d
 de añadir sólo se habilita cuando hay almacenamiento y color seleccionados.
 
 **Datos del API.** Algunos campos del API llegan con erratas (`dimentions`, `secondaryCmera`),
-como texto o como lista, o vacíos. `getProductSpecs` (`src/utils/product.js`) los normaliza
+intercambiados (`displayResolution` trae el tamaño de pantalla), como texto o como lista, o
+vacíos, y hay opciones de almacenamiento sin nombre. `getProductSpecs` (`src/utils/product.js`) los normaliza
 para la vista; los valores que faltan se muestran como "—" y un precio vacío como
 "Precio no disponible".
 

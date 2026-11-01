@@ -57,10 +57,26 @@ function withUnit(value, unit) {
   return `${formatted} ${unit}`;
 }
 
+const RESOLUTION_PATTERN = /\d+\s*x\s*\d+/i;
+
+/**
+ * El API devuelve a veces intercambiados `displayResolution` y `displaySize`
+ * (p. ej. displayResolution = "2.8 inches"). Se identifica cada uno por su formato.
+ */
+function getDisplay(product) {
+  const candidates = [product.displayResolution, product.displaySize].filter(
+    (value) => value !== undefined && value !== null && String(value).trim() !== '',
+  );
+  const resolution = candidates.find((value) => RESOLUTION_PATTERN.test(String(value)));
+  const size = candidates.find((value) => value !== resolution);
+  return { resolution, size };
+}
+
 /**
  * Lista de atributos a mostrar en la descripción del producto.
  */
 export function getProductSpecs(product) {
+  const display = getDisplay(product);
   return [
     { label: 'Marca', value: formatValue(product.brand) },
     { label: 'Modelo', value: formatValue(product.model) },
@@ -68,7 +84,8 @@ export function getProductSpecs(product) {
     { label: 'CPU', value: formatValue(product.cpu) },
     { label: 'RAM', value: formatValue(product.ram) },
     { label: 'Sistema operativo', value: formatValue(product.os) },
-    { label: 'Resolución de pantalla', value: formatValue(product.displayResolution) },
+    { label: 'Resolución de pantalla', value: formatValue(display.resolution) },
+    { label: 'Tamaño de pantalla', value: formatValue(display.size) },
     { label: 'Batería', value: formatValue(product.battery) },
     {
       label: 'Cámara principal',
@@ -83,9 +100,17 @@ export function getProductSpecs(product) {
   ];
 }
 
+// Algunas opciones llegan sin nombre: se muestra un texto genérico para que el selector sea usable
+function withLabel(options, fallback) {
+  return options.map((option) => ({
+    ...option,
+    name: String(option.name ?? '').trim() || fallback,
+  }));
+}
+
 export function getOptions(product) {
   return {
-    storages: product?.options?.storages ?? [],
-    colors: product?.options?.colors ?? [],
+    storages: withLabel(product?.options?.storages ?? [], 'Estándar'),
+    colors: withLabel(product?.options?.colors ?? [], 'Único'),
   };
 }

@@ -1,4 +1,4 @@
-import { filterProducts, formatPrice, getProductSpecs } from './product';
+import { filterProducts, formatPrice, getOptions, getProductSpecs } from './product';
 
 const products = [
   { id: '1', brand: 'Acer', model: 'Iconia Talk S' },
@@ -55,5 +55,37 @@ describe('getProductSpecs', () => {
     expect(byLabel.Dimensiones).toBe('145 x 72 x 8 mm');
     expect(byLabel.Peso).toBe('150 g');
     expect(byLabel.CPU).toBe('—');
+  });
+});
+
+describe('pantalla', () => {
+  const specsOf = (product) => Object.fromEntries(getProductSpecs(product).map((s) => [s.label, s.value]));
+
+  it('corrige resolución y tamaño cuando el API los devuelve intercambiados', () => {
+    const specs = specsOf({
+      displayResolution: '2.8 inches (~37.5% screen-to-body ratio)',
+      displaySize: '240 x 400 pixels (~167 ppi pixel density)',
+    });
+
+    expect(specs['Resolución de pantalla']).toBe('240 x 400 pixels (~167 ppi pixel density)');
+    expect(specs['Tamaño de pantalla']).toBe('2.8 inches (~37.5% screen-to-body ratio)');
+  });
+
+  it('respeta los campos cuando vienen bien', () => {
+    const specs = specsOf({ displayResolution: '720 x 1280 pixels', displaySize: '5.0 inches' });
+
+    expect(specs['Resolución de pantalla']).toBe('720 x 1280 pixels');
+    expect(specs['Tamaño de pantalla']).toBe('5.0 inches');
+  });
+});
+
+describe('getOptions', () => {
+  it('da un nombre a las opciones que llegan sin él', () => {
+    const { storages, colors } = getOptions({
+      options: { storages: [{ code: 2000, name: '' }], colors: [{ code: 1000, name: 'Black' }] },
+    });
+
+    expect(storages).toEqual([{ code: 2000, name: 'Estándar' }]);
+    expect(colors).toEqual([{ code: 1000, name: 'Black' }]);
   });
 });
